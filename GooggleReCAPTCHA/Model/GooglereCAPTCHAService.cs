@@ -15,7 +15,7 @@ namespace GooggleReCAPTCHA.Model
         {
             _setting = settings.Value;
         }
-        public virtual async Task<GoogleRespo> RecVer(string _Token)
+        public virtual async Task<GoogleRespo> VerityfyreCaptcha(string _Token)
         {
             GooglereCAPTCHAData _MyData = new GooglereCAPTCHAData
             {
@@ -40,7 +40,7 @@ namespace GooggleReCAPTCHA.Model
         public double score { get; set; }   //"score": number             // the score for this request (0.0 - 1.0)
         public string action { get; set; }   //"action": string            // the action name for this request (important to verify)
         public DateTime challenge_ts { get; set; } //"challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
-        public bool hostname { get; set; }  //"hostname": string,         // the hostname of the site where the reCAPTCHA was solved
+        public string hostname { get; set; }  //"hostname": string,         // the hostname of the site where the reCAPTCHA was solved
         //public bool codes { get; set; } //"error-codes": [...]        // optional
     }
 }

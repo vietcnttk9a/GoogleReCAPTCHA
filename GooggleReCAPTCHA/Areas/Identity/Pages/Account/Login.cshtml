@@ -19,6 +19,7 @@
                     <input asp-for="Input.Email" class="form-control" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
+                <input asp-for="Input.Token"/>
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>
                     <input asp-for="Input.Password" class="form-control" />
@@ -95,8 +96,9 @@
         //    });
         //}
         grecaptcha.ready(function () {
-            grecaptcha.execute(@GoogleReCAPTCHAR.Value.ReCAPTCHA_Site_Key, { action: 'submit' }).then(function (token) {
+            grecaptcha.execute('@GoogleReCAPTCHAR.Value.ReCAPTCHA_Site_Key', { action: 'submit' }).then(function (token) {
                 // Add your logic to submit to your backend server here.
+                $("#Input_Token").val(token);
                 console.log(token)
             });
         });

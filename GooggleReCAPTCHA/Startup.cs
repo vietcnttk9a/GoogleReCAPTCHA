@@ -36,7 +36,7 @@ namespace GooggleReCAPTCHA
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<ReCAPTCHASetting>(Configuration.GetSection("GogglereCAPTCHA"));
-
+            services.AddTransient<GooglereCAPTCHAService>();
             services.AddRazorPages();
         }
 

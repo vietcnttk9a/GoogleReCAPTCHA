@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using GooggleReCAPTCHA.Model;
 
 namespace GooggleReCAPTCHA.Areas.Identity.Pages.Account
 {
@@ -20,15 +21,17 @@ namespace GooggleReCAPTCHA.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly GooglereCAPTCHAService _googleReCAPTCHAService;
 
-
-        public LoginModel(SignInManager<IdentityUser> signInManager, 
+        public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            GooglereCAPTCHAService googleReCAPTCHAService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _googleReCAPTCHAService = googleReCAPTCHAService;
         }
 
         [BindProperty]
@@ -53,6 +56,8 @@ namespace GooggleReCAPTCHA.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+            public string Token { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -77,7 +82,11 @@ namespace GooggleReCAPTCHA.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ///Google ReCAPTCHA
-            //var _
+            var _GooglereCaptcha = _googleReCAPTCHAService.VerityfyreCaptcha(Input.Token);
+            if(!_GooglereCaptcha.Result.success && _GooglereCaptcha.Result.score <= 0.5)
+            {
+                ModelState.AddModelError(string.Empty, "Bạn là người máy ??");
+            }
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         
