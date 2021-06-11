@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form asp-controller="Home" asp-action="Login" method="post" id="logoutForm" class="">
+        <input />
+        <button type="submit"> LOGIN</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="https://www.google.com/recaptcha/api.js?hl=en&amp;render=6Le3H7cZAAAAADcLtPiGzWNi0wuGLic1b6OIX8h3"></script>
+    <script>
+        console.log("ScripRender");
+    </script>
+}
